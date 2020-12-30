@@ -24,7 +24,3 @@ export class Emitter {
     }
 }
  
-const emitter = new Emitter
-emitter.subscribe('notify', data => console.log('Sub', data))
-
-emitter.emit('notify', {a: 1})

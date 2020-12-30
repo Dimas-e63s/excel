@@ -14,14 +14,17 @@ class Dom {
   }
 
   text(text) {
-    if(typeof text === 'string') {
+    if(this.$el.tagName.toLowerCase() === 'input') {
+      return this.$el.value.trim()
+    }
+    if(!text) {
+      return this.$el.textContent
+    }
+    if(typeof text !== undefined) {
       this.$el.textContent = text
       return this
     }
 
-    if(this.$el.tagName.toLowerCase() === 'input') {
-      return this.$el.value.trim()
-    }
     return this.$el.textContent.trim()
   }
 
@@ -100,6 +103,22 @@ class Dom {
     for(const prop of Object.keys(styles)) {
       this.$el.style[prop] = styles[prop]
     }
+  }
+
+  attr(name, value) {
+    if(value) {
+      this.$el.setAttribute(name, value)
+      return this
+    } else {
+      return this.$el.getAttribute(name)
+    }
+  }
+
+  getStyles(styles = []) {
+    return styles.reduce((res, s) => {
+      res[s] = this.$el.style[s]
+      return res
+    }, {})
   }
 }
 
