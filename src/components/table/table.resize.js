@@ -1,5 +1,5 @@
 import {$} from '@core/dom'
-export function resizeHandler($root,event) {
+export function resizeHandler($root, event) {
   return new Promise(resolve => {
     const $resizer = $(event.target)
     const type = $resizer.data.resize
@@ -10,12 +10,12 @@ export function resizeHandler($root,event) {
     let value
 
     $resizer.css({
-        opacity: 1,
-        [sideProp]: -5000 + 'px'
+      opacity: 1,
+      [sideProp]: -5000 + 'px'
     })
 
     document.onmousemove = e => { 
-      if(type === 'col') {
+      if (type === 'col') {
         const delta = e.pageX - coords.right
         value = delta + coords.width
         $resizer.css({right: -delta + 'px'})
@@ -29,28 +29,26 @@ export function resizeHandler($root,event) {
     document.onmouseup = () => {
       document.onmousemove = null
       document.onmouseup = null
-        if(type === 'col') {
-          const data = $parent.data.col 
-          $root
-            .findAll(`[data-col="${data}"]`)
-            .forEach(cell => $(cell).css({'width': value + 'px'}))
-        } else {
-          $parent.css({ 'height': value + 'px'})
-        }
-        resolve({
-          id: $parent.data[type],
-          value,
-          type
-        })
+      if(type === 'col') {
+        const data = $parent.data.col 
+        $root
+          .findAll(`[data-col="${data}"]`)
+          .forEach(cell => $(cell).css({'width': value + 'px'}))
+      } else {
+        $parent.css({ 'height': value + 'px'})
+      }
+      resolve({
+        id: $parent.data[type],
+        value,
+        type
+      })
 
-        $resizer.css({
-            opacity: 0,
-            right: 0, 
-            bottom: 0  
-        })
-        
+      $resizer.css({
+        opacity: 0,
+        right: 0, 
+        bottom: 0  
+      })  
     }
-  })
-    
+  })  
 }
 

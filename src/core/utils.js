@@ -1,14 +1,14 @@
 
 export function capitalize(string) {
-  if(typeof string !== 'string') {
-      return ''
+  if (typeof string !== 'string') {
+    return ''
   }
   return string[0].toUpperCase() + string.slice(1)
 }
 
 export function range(start, end) {
   if(start > end) {
-      [end, start] = [start, end]
+    [end, start] = [start, end]
   }
   return new Array((end - start) + 1)
     .fill('')
@@ -35,8 +35,8 @@ export function camelToDashCase(str) {
 
 export function toInlineStyles(styles = {}) {
   return Object.keys(styles)
-      .map(key => `${camelToDashCase(key)}: ${styles[key]}`)
-      .join(';')
+    .map(key => `${camelToDashCase(key)}: ${styles[key]}`)
+    .join(';')
 }
 
 export function debounce(fn, wait) {
@@ -49,4 +49,12 @@ export function debounce(fn, wait) {
     clearTimeout(timeout)
     timeout = setTimeout(later, wait)
   }
+}
+
+export function clone(obj) {
+  return JSON.parse(JSON.stringify(obj))
+}
+
+export function preventDefault(e) {
+  e.preventDefault()
 }

@@ -10,14 +10,14 @@ import {parse} from '@/core/parse'
 export class Table extends ExcelComponent {
     static className = 'excel__table'
     constructor($root, options) {
-        super($root, {
-            name: 'Table',
-            listeners: ['mousedown', 'keydown', 'input'],
-            ...options
+      super($root, {
+        name: 'Table',
+        listeners: ['mousedown', 'keydown', 'input'],
+        ...options
         })
     }
     toHTML() {
-        return createTable(25, this.store.getState())
+      return createTable(25, this.store.getState())
     }
 
     prepare() {
@@ -25,30 +25,30 @@ export class Table extends ExcelComponent {
     }
 
     init() {
-        super.init()
+      super.init()
 
-        const $cell = this.$root.find('[data-id="0:0"]')
-        this.selectCell($cell)
+      const $cell = this.$root.find('[data-id="0:0"]')
+      this.selectCell($cell)
 
-        this.$on('formula:input', text => {
-          this.selection.current
-            .attr('data-value', text)
-            .text(parse(text))
+      this.$on('formula:input', text => {
+        this.selection.current
+          .attr('data-value', text)
+          .text(parse(text))
       
-          this.updateTextInStore(text)
-        })
+        this.updateTextInStore(text)
+      })
         
-        this.$on('formula:done', () => {
-          this.selection.current.focus()
-        })
+      this.$on('formula:done', () => {
+        this.selection.current.focus()
+      })
 
-        this.$on('toolbar:applyStyle', value => {
-          this.selection.applyStyle(value)
-          this.$dispatch(applyStyle({
-            value,
-            ids: this.selection.selectedIds
-          }))
-        })
+      this.$on('toolbar:applyStyle', value => {
+        this.selection.applyStyle(value)
+        this.$dispatch(applyStyle({
+          value,
+          ids: this.selection.selectedIds
+        }))
+      })
     }
 
     selectCell($cell) {
@@ -93,11 +93,11 @@ export class Table extends ExcelComponent {
         'Enter'
       ]
       const key = event.key
-      if(keys.includes(key) && !event.shiftKey) {
-          event.preventDefault()
-          const current = this.selection.current.id(true);
-          const $next = this.$root.find(nextSelector(key, current))
-          this.selectCell($next)
+      if (keys.includes(key) && !event.shiftKey) {
+        event.preventDefault()
+        const current = this.selection.current.id(true);
+        const $next = this.$root.find(nextSelector(key, current))
+        this.selectCell($next)
       }
     }
 

@@ -1,4 +1,5 @@
 import {range} from '@core/utils'
+
 export function shouldResize(event) {
   return event.target.dataset.resize
 }
@@ -21,21 +22,21 @@ export function matrix($target, $current) {
 
 export function nextSelector(key, {row, col}) {
   const MIN_VAL = 0
-  switch(key) {
-  case 'ArrowLeft':
-    col = col - 1 < MIN_VAL ? MIN_VAL : col-1
-    break
-  case 'ArrowRight':
-  case 'Tab':
-    col++
-    break
-  case 'ArrowDown':
-  case 'Enter':
-    row++
-    break
-  case 'ArrowUp':
-    row = row - 1 <= MIN_VAL ? MIN_VAL : row-1
-    break
+  switch (key) {
+    case 'ArrowLeft':
+      col = col - 1 < MIN_VAL ? MIN_VAL : col-1
+      break
+    case 'ArrowRight':
+    case 'Tab':
+      col++
+      break
+    case 'ArrowDown':
+    case 'Enter':
+      row++
+      break
+    case 'ArrowUp':
+      row = row - 1 <= MIN_VAL ? MIN_VAL : row-1
+      break
   } 
   return `[data-id="${row}:${col}"]`
 }
