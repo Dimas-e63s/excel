@@ -6,21 +6,26 @@ class Dom {
   }
 
   html(html) {
-      if(typeof html === 'string') {
-        this.$el.innerHTML = html
-        return this
-      }
-      return this.$el.outerHTML.trim()
+    if (typeof html === 'string') {
+      this.$el.innerHTML = html
+      return this
+    }
+    return this.$el.outerHTML.trim()
+  }
+
+  clear() {
+    this.$el.html('')
+    return this
   }
 
   text(text) {
-    if(this.$el.tagName.toLowerCase() === 'input') {
+    if (this.$el.tagName.toLowerCase() === 'input') {
       return this.$el.value.trim()
     }
-    if(!text) {
+    if (!text) {
       return this.$el.textContent
     }
-    if(typeof text !== undefined) {
+    if (typeof text !== undefined) {
       this.$el.textContent = text
       return this
     }
@@ -29,8 +34,8 @@ class Dom {
   }
 
   clear() {
-      this.html('')
-      return ''
+    this.html('')
+    return ''
   }
 
   on(eventType, callback) {
@@ -42,14 +47,14 @@ class Dom {
   }
 
   append(node) {
-      if (node instanceof Dom) {
-        node = node.$el
-      }
-      if(Element.prototype.append) {
-          this.$el.append(node)
-      } else {
-          this.$el.appendChild(node)
-      }
+    if (node instanceof Dom) {
+      node = node.$el
+    }
+    if(Element.prototype.append) {
+      this.$el.append(node)
+    } else {
+      this.$el.appendChild(node)
+    }
   }
 
   closest(selector) {
@@ -88,7 +93,7 @@ class Dom {
   }
   
   id(parse ) {
-    if(parse) {
+    if (parse) {
       const parsed = this.id().split(':')
       return {
         row: +parsed[0],
@@ -100,13 +105,13 @@ class Dom {
   }
 
   css(styles = {}) { 
-    for(const prop of Object.keys(styles)) {
+    for (const prop of Object.keys(styles)) {
       this.$el.style[prop] = styles[prop]
     }
   }
 
   attr(name, value) {
-    if(value) {
+    if( value) {
       this.$el.setAttribute(name, value)
       return this
     } else {
@@ -123,15 +128,15 @@ class Dom {
 }
 
 export function $(selector) {
-    return new Dom(selector)
+  return new Dom(selector)
 }
 
 $.create = (tagName, classes = '') => {
-    const el = document.createElement(tagName)
+  const el = document.createElement(tagName)
 
-    if(classes) {
-        el.classList.add(classes)
-    }
+  if(classes) {
+    el.classList.add(classes)
+  }
 
-    return $(el)
+  return $(el)
 }
